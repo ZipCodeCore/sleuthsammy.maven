@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington.repositories;
 
-import com.example.demoSammy.model.Turtle;
+
+import com.github.zipcodewilmington.model.Turtle;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
