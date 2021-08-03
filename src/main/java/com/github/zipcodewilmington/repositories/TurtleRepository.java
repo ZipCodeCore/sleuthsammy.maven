@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TurtleRepo extends CrudRepository<Turtle, Long> {
+public interface TurtleRepository extends CrudRepository<Turtle, Long> {
     List<Turtle> readAllByName(String name);
     Iterable<Turtle> getAllByIdAndNameIgnoreCase(Long id, String name);
     Iterable<Turtle> findAllByWeapon(String weapon);

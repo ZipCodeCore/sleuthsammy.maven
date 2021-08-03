@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SammyRepo extends CrudRepository<Sammy, Long> {
+public interface SammyRepository extends CrudRepository<Sammy, Long> {
    Iterable<Sammy> findAllByTopping(String topping);
    Iterable<Sammy> getAllByToppingAndBread(String topping, String bread);
 
