@@ -14,30 +14,32 @@ import java.sql.Statement;
  * @date 8/3/21 3:57 PM
  */
 public class JPAConfigurator {
+    private final Connection connection;
+
     public JPAConfigurator() {
         try {// Attempt to register JDBC Driver
             DriverManager.registerDriver(Driver.class.newInstance());
+            this.connection = getConnection("mysql");
         } catch (InstantiationException | IllegalAccessException | SQLException e1) {
             throw new RuntimeException(e1);
         }
     }
 
     public void init() {
-        Connection mysqlDbConnection = getConnection("mysql");
-        executeStatement(mysqlDbConnection, "DROP DATABASE IF EXISTS testdb;");
-        executeStatement(mysqlDbConnection, "CREATE DATABASE IF NOT EXISTS testdb;");
+        executeStatement("DROP DATABASE IF EXISTS testdb;");
+        executeStatement("CREATE DATABASE IF NOT EXISTS testdb;");
     }
 
-    void executeStatement(Connection connection, String sqlStatement) {
+    void executeStatement(String sqlStatement) {
         try {
-            Statement statement = getScrollableStatement(connection);
+            Statement statement = getScrollableStatement();
             statement.execute(sqlStatement);
         } catch (SQLException e) {
             throw new Error(e);
         }
     }
 
-    Statement getScrollableStatement(Connection connection) {
+    Statement getScrollableStatement() {
         int resultSetType = ResultSet.TYPE_SCROLL_INSENSITIVE;
         int resultSetConcurrency = ResultSet.CONCUR_READ_ONLY;
         try { // scrollable statements can be iterated more than once without closing
