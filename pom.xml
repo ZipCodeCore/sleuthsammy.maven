@@ -12,7 +12,8 @@
         <java.version>1.8</java.version>
         <jackson.version>2.12.3</jackson.version>
         <jupiter.version>5.4.0</jupiter.version>
-        <mysql-connector.version>5.1.49</mysql-connector.version>
+        <hibernate.version>5.5.5.Final</hibernate.version>
+        <mysql-connector.version>8.0.18</mysql-connector.version>
     </properties>
 
     <build>
@@ -83,6 +84,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
 
         <!-- H2 Database -->
         <dependency>
