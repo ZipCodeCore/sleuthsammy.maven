@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,20 +12,31 @@ import javax.persistence.Id;
 public class Sammy {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long Id;
-    String bread = "wheat";
-    String filling;
-    String topping = "swiss";
-    String condiment = "dijon";
-    boolean toasted = false;
+    private Long Id;
+    private String bread = "wheat";
+    private String filling;
+    private String topping = "swiss";
+    private String condiment = "dijon";
+    private boolean toasted = false;
 
-    public Sammy() {
-    }
-
-    public Sammy(String bread, String filling, String topping) {
+    public Sammy(Long id, String bread, String filling, String topping, String condiment, boolean toasted) {
+        Id = id;
         this.bread = bread;
         this.filling = filling;
         this.topping = topping;
+        this.condiment = condiment;
+        this.toasted = toasted;
+    }
+
+    public Sammy() {
+        this(
+                null,
+                "wheat",
+                null,
+                "swiss",
+                "dijon",
+                false
+        );
     }
 
     public Long getId() {
@@ -75,13 +89,17 @@ public class Sammy {
 
     @Override
     public String toString() {
-        return "Sandwich{" +
-                "Id=" + Id +
-                ", bread='" + bread + '\'' +
-                ", filling=" + filling +
-                ", topping='" + topping + '\'' +
-                ", condiment='" + condiment + '\'' +
-                ", toasted=" + toasted +
-                '}';
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "Sandwich{" +
+                    "Id=" + Id +
+                    ", bread='" + bread + '\'' +
+                    ", filling=" + filling +
+                    ", topping='" + topping + '\'' +
+                    ", condiment='" + condiment + '\'' +
+                    ", toasted=" + toasted +
+                    '}';
+        }
     }
 }

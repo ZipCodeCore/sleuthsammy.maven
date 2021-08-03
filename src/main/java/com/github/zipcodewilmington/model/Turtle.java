@@ -1,21 +1,17 @@
 package com.github.zipcodewilmington.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.*;
 
 @Entity
 public class Turtle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    String name ;
-    String weapon;
-    public Turtle() {
-    }
-
-    public Turtle(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Long id;
+    private String name;
+    private String weapon;
 
     public Long getId() {
         return id;
@@ -43,10 +39,14 @@ public class Turtle {
 
     @Override
     public String toString() {
-        return "Turtle{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", weapon='" + weapon + '\'' +
-                '}';
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return "Turtle{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", weapon='" + weapon + '\'' +
+                    '}';
+        }
     }
 }
